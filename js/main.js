@@ -8,34 +8,41 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 1500);
     });
 
+    // ==================== GESTION DE LA PHOTO DE PROFIL ====================
+    const profileImage = document.getElementById('profileImage');
+    const profilePlaceholder = document.getElementById('profilePlaceholder');
+    
+    // Vérifier si l'image charge correctement
+    if (profileImage) {
+        profileImage.addEventListener('load', function() {
+            console.log('✅ Photo de profil chargée avec succès');
+            this.style.display = 'block';
+            if (profilePlaceholder) profilePlaceholder.style.display = 'none';
+        });
+        
+        profileImage.addEventListener('error', function() {
+            console.log('❌ Erreur de chargement de la photo');
+            this.style.display = 'none';
+            if (profilePlaceholder) profilePlaceholder.style.display = 'flex';
+        });
+    }
+
     // ==================== PARTICULES ANIMÉES ====================
     const particlesContainer = document.getElementById('particles');
     
     function createParticles() {
-        // Créer 50 particules
         for (let i = 0; i < 50; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
-            
-            // Position aléatoire
             particle.style.left = Math.random() * 100 + '%';
-            
-            // Délai d'animation aléatoire
             particle.style.animationDelay = Math.random() * 15 + 's';
-            
-            // Durée d'animation variable
             particle.style.animationDuration = (10 + Math.random() * 10) + 's';
-            
-            // Taille variable
             const size = Math.random() * 4 + 2;
             particle.style.width = size + 'px';
             particle.style.height = size + 'px';
-            
-            // Couleur aléatoire (cyan, rose, ou violet)
             const colors = ['#00f3ff', '#ff00ff', '#b300ff'];
             particle.style.background = colors[Math.floor(Math.random() * colors.length)];
             particle.style.boxShadow = `0 0 10px ${particle.style.background}`;
-            
             particlesContainer.appendChild(particle);
         }
     }
@@ -78,7 +85,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     setInterval(() => {
         if (Math.random() > 0.95) {
-            // Appliquer un effet glitch aléatoire
             const x1 = Math.random() * 10 - 5;
             const y1 = Math.random() * 10 - 5;
             const x2 = Math.random() * 10 - 5;
@@ -110,9 +116,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, observerOptions);
 
-    // Sélectionner les éléments à animer
     const animatedElements = document.querySelectorAll(
-        '.info-card, .skill-card, .timeline-item, .passion-card, .contact-card'
+        '.info-card, .skill-card, .timeline-item, .passion-card, .contact-card, .cv-card, .cv-preview'
     );
     
     animatedElements.forEach(el => {
@@ -122,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(el);
     });
 
-    // ==================== EFFET TYPING POUR LE SOUS-TITRE ====================
+    // ==================== EFFET TYPING ====================
     const subtitle = document.querySelector('.subtitle');
     if (subtitle) {
         const text = subtitle.textContent;
@@ -137,11 +142,10 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        // Démarrer l'effet typing après le loading
         setTimeout(typeWriter, 2000);
     }
 
-    // ==================== COMPTEUR ANIMÉ POUR LES COMPÉTENCES ====================
+    // ==================== ANIMATION BARRES DE COMPÉTENCES ====================
     function animateSkillBars() {
         const skillBars = document.querySelectorAll('.skill-progress');
         
@@ -164,21 +168,59 @@ document.addEventListener('DOMContentLoaded', function() {
     
     animateSkillBars();
 
-    // ==================== EFFET SONORE AU SURVOL (Optionnel) ====================
-    // Décommentez si vous voulez ajouter des sons
+    // ==================== GESTION DU FORMULAIRE DE CONTACT ====================
+    const contactForm = document.getElementById('contactForm');
     
-    /*
-    const hoverSound = new Audio('assets/hover.mp3');
-    hoverSound.volume = 0.1;
-    
-    document.querySelectorAll('.btn, .nav-links a').forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            hoverSound.currentTime = 0;
-            hoverSound.play().catch(e => console.log('Audio play failed'));
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            // Le formulaire utilise mailto:, donc il ouvrira le client mail
+            // Mais on peut ajouter une confirmation visuelle
+            const btn = this.querySelector('button[type="submit"]');
+            const originalText = btn.textContent;
+            
+            btn.textContent = 'Ouverture de votre client mail... 📧';
+            btn.style.background = 'var(--neon-green)';
+            
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.background = '';
+            }, 3000);
         });
-    });
-    */
+    }
+
+    // ==================== VÉRIFICATION DES LIENS CV ====================
+    const cvDownload = document.getElementById('cvDownload');
+    const cvDrive = document.getElementById('cvDrive');
+    
+    // Vérifier si les liens sont par défaut et alerter l'utilisateur
+    if (cvDownload && cvDownload.getAttribute('href') === 'assets/mon-cv.pdf') {
+        cvDownload.addEventListener('click', function(e) {
+            // Vérifier si le fichier existe (en production, ceci sera géré par le serveur)
+            console.log('💡 Astuce: Remplacez assets/mon-cv.pdf par votre vrai CV');
+        });
+    }
+
+    if (cvDrive && cvDrive.getAttribute('href').includes('VOTRE_ID')) {
+        cvDrive.addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('⚠️ Veuillez remplacer le lien Google Drive par votre propre lien dans le fichier HTML !\n\nRemplacez "VOTRE_ID" par l\'ID de votre fichier Google Drive.');
+        });
+    }
+
+    // ==================== EFFET HOVER SUR LA PHOTO ====================
+    const profileFrame = document.querySelector('.profile-frame');
+    if (profileFrame) {
+        profileFrame.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.02)';
+            this.style.transition = 'transform 0.3s ease';
+        });
+        
+        profileFrame.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1)';
+        });
+    }
 
     console.log('🎮 Portfolio Gaming chargé avec succès!');
     console.log('👤 Antema Fiderana - L1 DA2I EMIT');
+    console.log('📧 Contact: antemaandrianarivosoa@gmail.com');
 });
