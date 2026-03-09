@@ -188,24 +188,68 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ==================== VÉRIFICATION DES LIENS CV ====================
-    const cvDownload = document.getElementById('cvDownload');
-    const cvDrive = document.getElementById('cvDrive');
-    
-    // Vérifier si les liens sont par défaut et alerter l'utilisateur
-    if (cvDownload && cvDownload.getAttribute('href') === 'assets/mon-cv.pdf') {
-        cvDownload.addEventListener('click', function(e) {
-            // Vérifier si le fichier existe (en production, ceci sera géré par le serveur)
-            console.log('💡 Astuce: Remplacez assets/mon-cv.pdf par votre vrai CV');
-        });
-    }
+    // ==================== GESTION DU CV GITHUB ====================
+const cvDownload = document.getElementById('cvDownload');
+const githubBtn = document.querySelector('.github-btn');
 
-    if (cvDrive && cvDrive.getAttribute('href').includes('VOTRE_ID')) {
-        cvDrive.addEventListener('click', function(e) {
-            e.preventDefault();
-            alert('⚠️ Veuillez remplacer le lien Google Drive par votre propre lien dans le fichier HTML !\n\nRemplacez "VOTRE_ID" par l\'ID de votre fichier Google Drive.');
-        });
-    }
+// Animation au survol du bouton GitHub
+if (githubBtn) {
+    githubBtn.addEventListener('mouseenter', function() {
+        this.style.transform = 'scale(1.05)';
+    });
+    
+    githubBtn.addEventListener('mouseleave', function() {
+        this.style.transform = 'scale(1)';
+    });
+    
+    // Confirmer l'ouverture dans un nouvel onglet
+    githubBtn.addEventListener('click', function(e) {
+        console.log('🚀 Ouverture du CV GitHub Pages...');
+        
+        // Animation visuelle
+        this.innerHTML = '<span>🔄 Chargement...</span>';
+        setTimeout(() => {
+            this.innerHTML = '<span>🚀 Voir mon CV en ligne</span>';
+        }, 2000);
+    });
+}
+
+// Vérifier si le PDF local existe
+if (cvDownload) {
+    cvDownload.addEventListener('click', function(e) {
+        // Vérifier si c'est un lien local
+        if (this.getAttribute('href') === 'antemaCV.pdf') {
+            console.log('💡 Astuce: Placez votre CV PDF dans le même dossier que index.html');
+        }
+    });
+}
+
+// Gestion de l'iframe (désactiver le blocage si nécessaire)
+const cvIframe = document.querySelector('.iframe-container iframe');
+if (cvIframe) {
+    cvIframe.addEventListener('load', function() {
+        console.log('✅ CV chargé dans l\'aperçu');
+    });
+    
+    cvIframe.addEventListener('error', function() {
+        console.log('⚠️ Impossible de charger l\'aperçu direct (X-Frame-Options)');
+        // Masquer l'iframe et montrer un message
+        const container = document.querySelector('.iframe-container');
+        if (container) {
+            container.innerHTML = `
+                <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; color: var(--neon-cyan); text-align: center; padding: 20px;">
+                    <span style="font-size: 3rem; margin-bottom: 20px;">🚀</span>
+                    <p>Le CV ne peut pas être affiché ici directement</p>
+                    <a href="https://antemaandrianarivosoa-sys.github.io/AntemaCV/" target="_blank" class="btn primary" style="margin-top: 20px;">
+                        Voir mon CV sur GitHub 🌐
+                    </a>
+                </div>
+            `;
+        }
+    });
+}
+
+
 
     // ==================== EFFET HOVER SUR LA PHOTO ====================
     const profileFrame = document.querySelector('.profile-frame');
