@@ -175,33 +175,69 @@
         </div>
     </section>
 
-    <!-- CV Section -->
     <section id="cv">
-        <h2 class="section-title">MON CURRICULUM VITAE</h2>
-        <div class="cv-container">
-            <div class="cv-card">
-                <div class="cv-icon">📄</div>
-                <h3>Télécharger mon CV</h3>
-                <p>Consultez mon parcours complet, mes compétences détaillées et mes expériences.</p>
-                
-                <!-- Option 1: Lien vers un fichier PDF -->
-                <a href="antemaCV.pdf" class="btn cv-btn" target="_blank" id="cvDownload">
-                    <span>📥 Télécharger CV (PDF)</span>
-                </a>
-                
-                <!-- Option 2: Lien vers Google Drive / Cloud -->
-                <a href="https://antemaandrianarivosoa-sys.github.io/AntemaCV/" class="btn cv-btn secondary" target="_blank" id="cvDrive">
-                    <span>☁️ Voir sur Google Drive</span>
-                </a>
-                
-                <div class="cv-info">
-                    <small>💡 Remplacez les liens ci-dessus par votre CV dans le code HTML</small>
+    <h2 class="section-title">MON_CURRICULUM</h2>
+    <div class="cv-container">
+        <div class="cv-card github-cv">
+            <div class="cv-icon">📄</div>
+            <h3>Mon CV en ligne</h3>
+            <p>Consultez mon parcours complet, mes compétences détaillées et mes expériences directement sur mon site GitHub.</p>
+            
+            <!-- Lien vers ton CV sur GitHub Pages -->
+            <a href="https://antemaandrianarivosoa-sys.github.io/AntemaCV/" class="btn cv-btn github-btn" target="_blank" rel="noopener noreferrer">
+                <span>🚀 Voir mon CV en ligne</span>
+            </a>
+            
+            <!-- Option téléchargement PDF si disponible -->
+            <a href="antemaCV.pdf" class="btn cv-btn secondary" target="_blank" id="cvDownload" download>
+                <span>📥 Télécharger en PDF</span>
+            </a>
+            
+            <div class="cv-info github-info">
+                <small>🌐 Hébergé sur <strong>GitHub Pages</strong></small>
+            </div>
+        </div>
+        
+        <div class="cv-preview">
+            <h4>Aperçu rapide</h4>
+            <div class="cv-stats">
+                <div class="stat-item">
+                    <span class="stat-number">4</span>
+                    <span class="stat-label">Langages maîtrisés</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">L1</span>
+                    <span class="stat-label">Niveau actuel</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">S</span>
+                    <span class="stat-label">Baccalauréat</span>
                 </div>
             </div>
-            
-            <div class="cv-preview">
-                <h4>Aperçu rapide</h4>
-                <div class="cv-stats">
+        </div>
+    </div>
+    
+    <!-- Aperçu intégré du CV (Optionnel - iframe) -->
+    <div class="cv-embedded">
+        <h3>Aperçu direct</h3>
+        <div class="iframe-container">
+            <iframe 
+                src="https://antemaandrianarivosoa-sys.github.io/AntemaCV/" 
+                title="CV Antema Fiderana" 
+                frameborder="0"
+                loading="lazy">
+            </iframe>
+            <div class="iframe-overlay">
+                <a href="https://antemaandrianarivosoa-sys.github.io/AntemaCV/" target="_blank" class="btn primary">
+                    Ouvrir en plein écran 🚀
+                </a>
+            </div>
+        </div>
+    </div>
+ 
+         <div class="cv-preview">
+             <h4>Aperçu rapide</h4>
+             <div class="cv-stats">
                     <div class="stat-item">
                         <span class="stat-number">4</span>
                         <span class="stat-label">Langages maîtrisés</span>
@@ -214,7 +250,6 @@
                         <span class="stat-number">S</span>
                         <span class="stat-label">Baccalauréat</span>
                     </div>
-                </div>
             </div>
         </div>
     </section>
