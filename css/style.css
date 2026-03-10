@@ -648,29 +648,23 @@ section {
     line-height: 1.6;
 }
 
-/* SECTION CV - GITHUB VERSION */
+/* SECTION CV - GITHUB UNIQUEMENT */
+.cv-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
 .github-cv {
     background: linear-gradient(135deg, rgba(36, 41, 46, 0.2), rgba(0, 243, 255, 0.1));
     border: 2px solid #24292e;
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
     position: relative;
     overflow: hidden;
-}
-
-.github-cv::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: conic-gradient(from 0deg, transparent, #2ea043, transparent 30%);
-    animation: rotate 4s linear infinite;
-    opacity: 0;
     transition: 0.3s;
-}
-
-.github-cv:hover::before {
-    opacity: 0.2;
 }
 
 .github-cv:hover {
@@ -679,22 +673,43 @@ section {
     transform: translateY(-5px);
 }
 
+.cv-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.github-cv h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    color: #2ea043;
+    margin-bottom: 15px;
+}
+
+.github-cv p {
+    color: #aaa;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
 .github-btn {
     background: #24292e;
     border-color: #2ea043;
     color: #fff;
-    position: relative;
-    overflow: hidden;
-}
-
-.github-btn::before {
-    background: linear-gradient(90deg, transparent, #2ea043, transparent);
+    display: inline-block;
+    padding: 15px 40px;
+    animation: githubPulse 2s infinite;
 }
 
 .github-btn:hover {
     background: #2ea043;
     color: #fff;
     box-shadow: 0 0 30px rgba(46, 160, 67, 0.5);
+}
+
+@keyframes githubPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(46, 160, 67, 0.4); }
+    50% { box-shadow: 0 0 0 10px rgba(46, 160, 67, 0); }
 }
 
 .github-info {
@@ -708,6 +723,55 @@ section {
 .github-info strong {
     color: #2ea043;
     font-family: 'Orbitron', sans-serif;
+}
+
+.cv-preview {
+    background: var(--glass);
+    border: 1px solid rgba(0, 243, 255, 0.2);
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.cv-preview h4 {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--neon-cyan);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.cv-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.stat-item {
+    background: rgba(0, 243, 255, 0.05);
+    border: 1px solid rgba(0, 243, 255, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.stat-item:hover {
+    background: rgba(0, 243, 255, 0.1);
+    transform: scale(1.05);
+}
+
+.stat-number {
+    display: block;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    color: var(--neon-cyan);
+    font-weight: 900;
+}
+
+.stat-label {
+    display: block;
+    color: #888;
+    font-size: 0.9rem;
+    margin-top: 5px;
 }
 
 /* IFRAME EMBEDDED CV */
@@ -763,18 +827,12 @@ section {
     opacity: 1;
 }
 
-/* Animation pour le bouton GitHub */
-@keyframes githubPulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(46, 160, 67, 0.4); }
-    50% { box-shadow: 0 0 0 10px rgba(46, 160, 67, 0); }
-}
-
-.github-btn {
-    animation: githubPulse 2s infinite;
-}
-
 /* Responsive */
 @media (max-width: 968px) {
+    .cv-container {
+        grid-template-columns: 1fr;
+    }
+    
     .iframe-container {
         height: 400px;
     }
@@ -787,6 +845,10 @@ section {
 @media (max-width: 480px) {
     .iframe-container {
         height: 300px;
+    }
+    
+    .github-cv {
+        padding: 30px 20px;
     }
 }
 
